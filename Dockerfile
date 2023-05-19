@@ -1,8 +1,8 @@
-FROM node:18.14.2-alpine3.16 AS build
+FROM registry.access.redhat.com/ubi8/nodejs-18 AS build
 WORKDIR /usr/src/app
-COPY package.json package-lock.json ./
+COPY --chown=1001:1001 package.json package-lock.json ./
 RUN npm ci
-COPY . .
+COPY --chown=1001:1001 . .
 ENV NODE_ENV production
 RUN npm run build
 
